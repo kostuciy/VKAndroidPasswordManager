@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="false"
+        android:name=".view.VKTestApplication"
         android:installLocation="internalOnly"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

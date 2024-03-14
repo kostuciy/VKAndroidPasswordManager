@@ -3,11 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/authFragment">
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.vkandroidpasswordmanager.view.fragments.ListFragment"
+        android:name="com.example.vkandroidpasswordmanager.view.fragment.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.vkandroidpasswordmanager.view.fragment.AuthFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_authFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_passwordDialog"
+            app:destination="@id/passwordDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/passwordDialog"
+        android:name="com.example.vkandroidpasswordmanager.view.dialog.PasswordDialog"
+        android:label="PasswordDialog" >
+        <action
+            android:id="@+id/action_passwordDialog_to_listFragment"
+            app:destination="@id/listFragment" />
+    </dialog>
 </navigation>
