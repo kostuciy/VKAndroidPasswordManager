@@ -24,6 +24,6 @@
     </fragment>
     <dialog
         android:id="@+id/passwordDialog"
-        android:name="com.example.vkandroidpasswordmanager.view.dialog.PasswordDialog"
+        android:name="com.example.vkandroidpasswordmanager.view.dialog.SetupDialog"
         android:label="PasswordDialog" />
 </navigation>
