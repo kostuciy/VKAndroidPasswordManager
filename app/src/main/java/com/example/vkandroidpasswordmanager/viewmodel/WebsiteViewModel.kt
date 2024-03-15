@@ -20,16 +20,18 @@ class WebsiteViewModel @Inject constructor(
     val state
         get() = _state
 
-    private var currentWebsite = Website()
+    private var _currentWebsite = Website()
+    val currentWebsite
+        get() = _currentWebsite
 
     fun select(website: Website) {
-        currentWebsite = website
+        _currentWebsite = website
     }
     fun save() {
         viewModelScope.launch {
             try {
                 _state.value = ListState(loading = true)
-                repository.save(currentWebsite)
+                repository.save(_currentWebsite)
                 _state.value = ListState()
             } catch (e: Exception) {
                 _state.value = ListState(error = true)
