@@ -25,9 +25,5 @@
     <dialog
         android:id="@+id/passwordDialog"
         android:name="com.example.vkandroidpasswordmanager.view.dialog.PasswordDialog"
-        android:label="PasswordDialog" >
-        <action
-            android:id="@+id/action_passwordDialog_to_listFragment"
-            app:destination="@id/listFragment" />
-    </dialog>
+        android:label="PasswordDialog" />
 </navigation>

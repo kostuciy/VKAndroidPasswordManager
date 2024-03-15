@@ -17,14 +17,13 @@ class BiometryHelper @Inject constructor (
 ) {
     val available = android.os.Build.VERSION.SDK_INT > 29
 
-    private val promptInfo: BiometricPrompt.PromptInfo? =
-        if (available)
-            null
-        else BiometricPrompt.PromptInfo.Builder()
-                            .setTitle(context.getString(R.string.biometry_title))
-                            .setSubtitle(context.getString(R.string.biometry_subtitle))
-                            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
-                            .build()
+    private val promptInfo: BiometricPrompt.PromptInfo by lazy {
+        BiometricPrompt.PromptInfo.Builder()
+            .setTitle(context.getString(R.string.biometry_title))
+            .setSubtitle(context.getString(R.string.biometry_subtitle))
+            .setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
+            .build()
+    }
 
 //    call before authentication fun
     fun compatibilityCheck(): Boolean =
@@ -94,6 +93,7 @@ class BiometryHelper @Inject constructor (
         }
 
     fun authenticate(biometricPrompt: BiometricPrompt) {
-        biometricPrompt.authenticate(promptInfo ?: return)
+        if (!available) return
+        biometricPrompt.authenticate(promptInfo)
     }
 }

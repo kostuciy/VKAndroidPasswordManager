@@ -14,12 +14,12 @@ class PrefsHelper @Inject constructor(
 ) {
     private val preferences = context.getSharedPreferences(FILE_KEY, Context.MODE_PRIVATE)
 
-    var password: String?
-        get() = preferences.getString(PASSWORD_KEY, null)
-        set(value) {
+    fun getPassword() = preferences.getString(PASSWORD_KEY, null)
+
+    fun setPassword(password: String) {
             preferences
                 .edit()
-                .putString(value, null)
+                .putString(PASSWORD_KEY, password)
                 .apply()
-        }
+    }
 }

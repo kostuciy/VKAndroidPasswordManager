@@ -21,4 +21,7 @@
     <string name="error_biometric_security">Security update required</string>
     <string name="no_supported_biometric_features_available">No supported biometric features available</string>
     <string name="error_biometric_unknown">Unknown error</string>
+    <string name="toast_wrong_password">Wrong password</string>
+    <string name="authenctication_error">Error occurred, please try again later</string>
+    <string name="authentication_failed">Authentication failed</string>
 </resources>
