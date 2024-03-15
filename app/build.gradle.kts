@@ -43,6 +43,10 @@ android {
 dependencies {
     val nav_version = "2.7.7"
     val hilt_version = "2.46"
+    val room_version = "2.6.1"
+    val gson_version = "2.10.1"
+    val glide_version = "4.16.0"
+
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -53,6 +57,12 @@ dependencies {
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("com.google.code.gson:gson:$gson_version")
+    implementation("com.github.bumptech.glide:glide:$glide_version")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
