@@ -90,7 +90,7 @@ class ListFragment : Fragment() {
         with(viewModel) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    websiteList.collect { adapter.submitList(it.map { it.website }) }
+                    list.collect { adapter.submitList(it.map { it.website }) }
                 }
             }
         }

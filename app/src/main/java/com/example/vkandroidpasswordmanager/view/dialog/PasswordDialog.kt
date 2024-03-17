@@ -12,16 +12,17 @@ import com.example.vkandroidpasswordmanager.databinding.DialogPasswordBinding
 import com.example.vkandroidpasswordmanager.model.dto.Password
 import com.example.vkandroidpasswordmanager.viewmodel.WebsiteViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class PasswordDialog : DialogFragment() {
     private val viewModel: WebsiteViewModel by activityViewModels()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val password =
-            if (viewModel.currentPassword.id == 0L)
-                viewModel.currentPassword.copy(
-                    id = viewModel.currentWebsitePasswords.value.size + 1L
-                ) else viewModel.currentPassword
+            if (viewModel.currentData.value.password.id == 0L)
+                viewModel.currentData.value.password.copy(
+                    id = Random.nextLong()
+                ) else viewModel.currentData.value.password
 
         return activity?.let {
             val binding = DialogPasswordBinding.inflate(

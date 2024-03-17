@@ -38,7 +38,7 @@ class WebsiteFragment : Fragment() {
     ): View? {
         val binding = FragmentWebsiteBinding.inflate(inflater, container, false)
 
-        val website = viewModel.currentWebsite
+        val website = viewModel.currentData.value.website
 
         val adapter = PasswordAdapter(object : PasswordInteractionListener {
              override fun onCopyClick(password: Password) {
@@ -129,7 +129,7 @@ class WebsiteFragment : Fragment() {
         with(viewModel) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    currentWebsitePasswords.collect { adapter.submitList(it) }
+                    currentData.collect { adapter.submitList(it.passwords) }
                 }
             }
         }

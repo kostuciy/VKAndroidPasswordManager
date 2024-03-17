@@ -18,8 +18,10 @@ class RepositoryImpl @Inject constructor(
             websiteEntities.map { it.dto() }
         }.flowOn(Dispatchers.Main)
 
-    override suspend fun save(website: Website, passwords: List<Password>) {
-        val websiteId = dao.insertWebsite(website.entity())
+    override suspend fun save(website: Website): Long =
+        dao.insertWebsite(website.entity())
+
+    override suspend fun save(websiteId: Long, passwords: List<Password>) {
         dao.deletePasswordsFromWebsite(websiteId)
         dao.insertPasswords(passwords.map { it.entity().copy(id = 0L, websiteId = websiteId) })
     }
