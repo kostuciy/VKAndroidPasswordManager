@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,6 +60,19 @@ class ListFragment : Fragment() {
         })
 
         with(binding) {
+            with(toolbar) {
+                inflateMenu(R.menu.menu_list)
+                setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.password_button -> {
+                            findNavController().navigate(R.id.action_listFragment_to_passwordDialog)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
+
             websiteRecyclerView.apply {
                 this.adapter = adapter
                 layoutManager = LinearLayoutManager(context)

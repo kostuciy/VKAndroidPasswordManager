@@ -33,4 +33,6 @@
     <string name="dialog_password_message">New password setup</string>
     <string name="toast_copied">Copied to clipboard</string>
     <string name="toast_fields_filled">All fields must be filled</string>
+    <string name="toast_passwords_not_match">Passwords do not match</string>
+    <string name="menu_password">Change password</string>
 </resources>

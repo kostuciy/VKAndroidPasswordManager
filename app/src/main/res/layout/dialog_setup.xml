@@ -6,12 +6,15 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <ImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/show_password_button"
+        style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:src="@drawable/baseline_remove_red_eye_24"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/baseline_remove_red_eye_24"
+        app:iconTint="@color/black"
+        android:checkable="true"
         app:layout_constraintBottom_toBottomOf="@+id/password_edit_text"
         app:layout_constraintStart_toEndOf="@+id/password_edit_text"
         app:layout_constraintTop_toTopOf="@+id/password_edit_text" />
