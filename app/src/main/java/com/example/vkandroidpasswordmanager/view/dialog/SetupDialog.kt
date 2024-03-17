@@ -7,7 +7,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.vkandroidpasswordmanager.R
-import com.example.vkandroidpasswordmanager.databinding.PasswordDialogBinding
+import com.example.vkandroidpasswordmanager.databinding.DialogSetupBinding
 import com.example.vkandroidpasswordmanager.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,7 @@ class SetupDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
-            val binding = PasswordDialogBinding.inflate(
+            val binding = DialogSetupBinding.inflate(
                 layoutInflater, null, false
             )
 

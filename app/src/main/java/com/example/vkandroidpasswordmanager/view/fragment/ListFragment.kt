@@ -10,11 +10,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vkandroidpasswordmanager.R
 import com.example.vkandroidpasswordmanager.databinding.FragmentListBinding
 import com.example.vkandroidpasswordmanager.model.dto.Website
-import com.example.vkandroidpasswordmanager.view.adapter.OnInteractionListener
+import com.example.vkandroidpasswordmanager.view.adapter.WebsiteInteractionListener
 import com.example.vkandroidpasswordmanager.view.adapter.WebsiteAdapter
 import com.example.vkandroidpasswordmanager.viewmodel.WebsiteViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,11 +32,29 @@ class ListFragment : Fragment() {
     ): View? {
         val binding = FragmentListBinding.inflate(inflater, container, false)
 
-        val adapter = WebsiteAdapter(object : OnInteractionListener {
+        val adapter = WebsiteAdapter(object : WebsiteInteractionListener {
             override fun onClicked(website: Website) {
-//                viewModel.toCurrentProduct(product)
-//                findNavController().navigate(R.id.action_listFragment_to_productFragment)
-                TODO()
+                viewModel.select(website)
+                findNavController().navigate(
+                    R.id.action_listFragment_to_websiteFragment
+                )
+            }
+        })
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0, ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val website = adapter.currentList[position]
+                viewModel.delete(website.id)
             }
         })
 
@@ -42,24 +62,21 @@ class ListFragment : Fragment() {
             websiteRecyclerView.apply {
                 this.adapter = adapter
                 layoutManager = LinearLayoutManager(context)
+                itemTouchHelper.attachToRecyclerView(this)
             }
 
             floatingActionButton.setOnClickListener {
-//                TODO: redo
-                val website = Website(
-                    url = "https://vk.com",
-                    name = "VK"
+                viewModel.selectToEmpty()
+                findNavController().navigate(
+                    R.id.action_listFragment_to_websiteFragment
                 )
-
-                viewModel.select(website)
-                viewModel.save()
             }
         }
 
         with(viewModel) {
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    list.collect { adapter.submitList(it) }
+                    websiteList.collect { adapter.submitList(it.map { it.website }) }
                 }
             }
         }

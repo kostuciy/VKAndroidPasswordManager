@@ -5,29 +5,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vkandroidpasswordmanager.databinding.WebsiteItemBinding
+import com.example.vkandroidpasswordmanager.databinding.ItemWebsiteBinding
 import com.example.vkandroidpasswordmanager.model.dto.Website
 import com.example.vkandroidpasswordmanager.utils.ViewExtensions.loadFavicon
 
-interface OnInteractionListener {
+interface WebsiteInteractionListener {
     fun onClicked(website: Website)
 }
 
 class WebsiteAdapter(
-    private val onInteractionListener: OnInteractionListener
-) : ListAdapter<Website, WebsiteAdapter.ProductViewHolder>(
-    ProductCallback()
+    private val onInteractionListener: WebsiteInteractionListener
+) : ListAdapter<Website, WebsiteAdapter.WebsiteViewHolder>(
+    WebsiteCallback()
 ) {
 
-    class ProductViewHolder(
-        private val binding: WebsiteItemBinding,
-        private val onInteractionListener: OnInteractionListener
+    class WebsiteViewHolder(
+        private val binding: ItemWebsiteBinding,
+        private val onInteractionListener: WebsiteInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(website: Website) {
             with(binding) {
-                faviconImageView.loadFavicon("${website.url}/favicon.ico")
-                nameTextView.text = website.name
+                faviconImageView.loadFavicon(
+                    if (website.url.endsWith("/")) "${website.url}favicon.ico"
+                    else "${website.url}/favicon.ico"
+                )
+                nameTextView.text = website.name.ifBlank { website.url }
                 root.setOnClickListener {
                     onInteractionListener.onClicked(website)
                 }
@@ -35,20 +38,20 @@ class WebsiteAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = WebsiteItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WebsiteViewHolder {
+        val binding = ItemWebsiteBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return ProductViewHolder(binding, onInteractionListener)
+        return WebsiteViewHolder(binding, onInteractionListener)
     }
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = currentList[position]
-        holder.bind(product)
+    override fun onBindViewHolder(holder: WebsiteViewHolder, position: Int) {
+        val website = currentList[position]
+        holder.bind(website)
     }
 }
 
-class ProductCallback : DiffUtil.ItemCallback<Website>() {
+class WebsiteCallback : DiffUtil.ItemCallback<Website>() {
 
     override fun areItemsTheSame(oldItem: Website, newItem: Website): Boolean {
         return oldItem.id == newItem.id

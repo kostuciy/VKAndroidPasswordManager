@@ -25,4 +25,12 @@
     <string name="authenctication_error">Error occurred, please try again later</string>
     <string name="authentication_failed">Authentication failed</string>
     <string name="hint_website_url">Enter website url</string>
+    <string name="hint_title_website">Enter website name</string>
+    <string name="menu_add">Add</string>
+    <string name="error_wrong_url_format">Wrong URL format</string>
+    <string name="dialog_enter_password">Enter password</string>
+    <string name="dialog_enter_context">Enter context for password</string>
+    <string name="dialog_password_message">New password setup</string>
+    <string name="toast_copied">Copied to clipboard</string>
+    <string name="toast_fields_filled">All fields must be filled</string>
 </resources>

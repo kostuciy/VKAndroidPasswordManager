@@ -10,7 +10,7 @@ object ViewExtensions {
         Glide.with(this)
             .load(url)
             .circleCrop()
-            .placeholder(R.drawable.ic_launcher_foreground)
+            .placeholder(R.drawable.baseline_image_24)
             .into(this)
     }
 }

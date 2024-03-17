@@ -9,7 +9,11 @@
         android:id="@+id/listFragment"
         android:name="com.example.vkandroidpasswordmanager.view.fragment.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_websiteFragment"
+            app:destination="@id/websiteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.vkandroidpasswordmanager.view.fragment.AuthFragment"
@@ -25,5 +29,18 @@
     <dialog
         android:id="@+id/passwordDialog"
         android:name="com.example.vkandroidpasswordmanager.view.dialog.SetupDialog"
+        android:label="PasswordDialog" />
+    <fragment
+        android:id="@+id/websiteFragment"
+        android:name="com.example.vkandroidpasswordmanager.view.fragment.WebsiteFragment"
+        android:label="fragment_website"
+        tools:layout="@layout/fragment_website" >
+        <action
+            android:id="@+id/action_websiteFragment_to_passwordDialog2"
+            app:destination="@id/passwordDialog2" />
+    </fragment>
+    <dialog
+        android:id="@+id/passwordDialog2"
+        android:name="com.example.vkandroidpasswordmanager.view.dialog.PasswordDialog"
         android:label="PasswordDialog" />
 </navigation>
