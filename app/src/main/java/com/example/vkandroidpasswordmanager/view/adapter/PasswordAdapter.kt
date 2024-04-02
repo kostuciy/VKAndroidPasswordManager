@@ -27,7 +27,7 @@ class PasswordAdapter(
         fun bind(password: Password) {
             with(binding) {
                 contextTextView.text = password.context
-                passwordTextView.text = password.password // do encryption
+                passwordTextView.text = password.password
                 copyButton.setOnClickListener {
                     onInteractionListener.onCopyClick(password)
                 }

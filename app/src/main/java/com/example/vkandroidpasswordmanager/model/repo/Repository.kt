@@ -10,9 +10,9 @@ interface Repository {
 
     suspend fun getPasswords(websiteId: Long): List<Password>
 
-    suspend fun save(websiteId: Long, passwords: List<Password>)
+    suspend fun save(website: Website, passwords: List<Password>): Long
 
-    suspend fun save(website: Website): Long
+    suspend fun saveEncrypted(passwords: List<Password>)
 
     suspend fun deleteWebsite(id: Long)
 

@@ -3,12 +3,10 @@ package com.example.vkandroidpasswordmanager.model.helpers
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import java.security.KeyStore
-import java.util.Currency
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
-import javax.crypto.spec.IvParameterSpec
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,8 +23,6 @@ class EncryptionHelper @Inject constructor() {
             )
                 .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-//                .setUserAuthenticationRequired(true) // 2 requires lock screen, invalidated if lock screen is disabled
-//                .setRandomizedEncryptionRequired(true)
                 .build()
         )
     }
@@ -39,9 +35,10 @@ class EncryptionHelper @Inject constructor() {
         (keyStore.getEntry("MyKeyAlias", null) as? KeyStore.SecretKeyEntry)?.secretKey
             ?: keyGenerator.generateKey()
 
-    private fun getEncryptCipher() = Cipher.getInstance("AES/GCM/NoPadding").apply {
-        init(Cipher.ENCRYPT_MODE, getKey())
-    }
+    private fun getEncryptCipher() =
+        Cipher.getInstance("AES/GCM/NoPadding").apply {
+            init(Cipher.ENCRYPT_MODE, getKey())
+        }
 
     private fun getDecryptCipher(ivBytes: ByteArray): Cipher =
         Cipher.getInstance("AES/GCM/NoPadding").apply {
@@ -57,11 +54,6 @@ class EncryptionHelper @Inject constructor() {
         return encryptCipher.iv to encryptedData
     }
 
-    fun decryptData(data: ByteArray, ivBytes: ByteArray): ByteArray {
-        return try {
-            getDecryptCipher(ivBytes).doFinal(data)
-        } catch (e: Exception) {
-            data
-        }
-    }
+    fun decryptData(data: ByteArray, ivBytes: ByteArray): ByteArray =
+        getDecryptCipher(ivBytes).doFinal(data)
 }
